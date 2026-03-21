@@ -1,0 +1,18 @@
+{
+  "name": "fake-data-api",
+  "version": "1.0.0",
+  "description": "Fake/mock data generation REST API + MCP server. No external dependencies for data generation.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "mcp": "node src/mcp-server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": ["fake-data", "mock", "testing", "mcp", "api"],
+  "author": "lazymac2x",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

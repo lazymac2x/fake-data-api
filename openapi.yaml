@@ -1,0 +1,302 @@
+openapi: 3.0.3
+info:
+  title: Fake Data API
+  description: Generate realistic fake/mock data for testing and development. No external APIs needed.
+  version: 1.0.0
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:3800
+    description: Local dev
+
+paths:
+  /api/v1/health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  version: { type: string }
+                  uptime: { type: number }
+
+  /api/v1/person:
+    get:
+      summary: Generate random person profiles
+      parameters:
+        - name: count
+          in: query
+          schema: { type: integer, default: 1, minimum: 1, maximum: 100 }
+        - name: locale
+          in: query
+          schema: { type: string, enum: [en, kr], default: en }
+      responses:
+        '200':
+          description: Array of person profiles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { type: object } }
+
+  /api/v1/text:
+    get:
+      summary: Generate lorem ipsum text
+      parameters:
+        - name: type
+          in: query
+          schema: { type: string, enum: [word, words, sentence, sentences, paragraph, paragraphs], default: sentence }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: wordCount
+          in: query
+          schema: { type: integer, default: 5 }
+      responses:
+        '200':
+          description: Generated text
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  type: { type: string }
+                  data: { type: array, items: { type: string } }
+
+  /api/v1/number:
+    get:
+      summary: Generate random numbers
+      parameters:
+        - name: min
+          in: query
+          schema: { type: number, default: 0 }
+        - name: max
+          in: query
+          schema: { type: number, default: 100 }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: type
+          in: query
+          schema: { type: string, enum: [int, float], default: int }
+        - name: decimals
+          in: query
+          schema: { type: integer, default: 2 }
+      responses:
+        '200':
+          description: Generated numbers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { type: number } }
+
+  /api/v1/uuid:
+    get:
+      summary: Generate UUIDs
+      parameters:
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: UUIDs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { type: string } }
+
+  /api/v1/password:
+    get:
+      summary: Generate passwords
+      parameters:
+        - name: length
+          in: query
+          schema: { type: integer, default: 16 }
+        - name: complexity
+          in: query
+          schema: { type: string, enum: [low, medium, high], default: high }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Passwords
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { type: string } }
+
+  /api/v1/address:
+    get:
+      summary: Generate addresses
+      parameters:
+        - name: country
+          in: query
+          schema: { type: string, enum: [US, KR], default: US }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Addresses
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { type: object } }
+
+  /api/v1/color:
+    get:
+      summary: Generate random colors
+      parameters:
+        - name: format
+          in: query
+          schema: { type: string, enum: [hex, rgb, hsl], default: hex }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Colors
+
+  /api/v1/date:
+    get:
+      summary: Generate random dates
+      parameters:
+        - name: type
+          in: query
+          schema: { type: string, enum: [past, future, between], default: past }
+        - name: years
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Dates
+
+  /api/v1/creditcard:
+    get:
+      summary: Generate test credit card numbers
+      parameters:
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Credit card numbers
+
+  /api/v1/ip:
+    get:
+      summary: Generate IP addresses
+      parameters:
+        - name: version
+          in: query
+          schema: { type: string, enum: [v4, v6], default: v4 }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: IP addresses
+
+  /api/v1/url:
+    get:
+      summary: Generate random URLs
+      parameters:
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: URLs
+
+  /api/v1/company:
+    get:
+      summary: Generate company names
+      parameters:
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Company names
+
+  /api/v1/email:
+    get:
+      summary: Generate email addresses
+      parameters:
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Emails
+
+  /api/v1/phone:
+    get:
+      summary: Generate phone numbers
+      parameters:
+        - name: country
+          in: query
+          schema: { type: string, enum: [US, KR], default: US }
+        - name: count
+          in: query
+          schema: { type: integer, default: 1 }
+      responses:
+        '200':
+          description: Phone numbers
+
+  /api/v1/custom:
+    post:
+      summary: Generate data from custom schema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [schema]
+              properties:
+                schema:
+                  type: object
+                  description: 'Keys are field names, values are generator specs (e.g. "person.fullName", "number:18-65")'
+                count:
+                  type: integer
+                  default: 1
+            example:
+              schema:
+                name: person.fullName
+                email: person.email
+                age: "number:18-65"
+              count: 3
+      responses:
+        '200':
+          description: Custom generated data
