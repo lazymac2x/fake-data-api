@@ -108,3 +108,5 @@ Tools: `generate_person`, `generate_text`, `generate_number`, `generate_uuid`, `
 ## License
 
 MIT
+
+<sub>💡 Host your own stack? <a href="https://m.do.co/c/c8c07a9d3273">Get $200 DigitalOcean credit</a> via lazymac referral link.</sub>
